@@ -1,0 +1,82 @@
+import UIKit
+import Foundation
+
+// Задача 1
+// Подзадача 1
+/*
+ Создайте три опциональные строковые переменные. Первые две проинициализируйте значениями,
+ оставшуюся переменную проинициализируйте значением nil. При помощи nil-coalescing оператора
+ выведите каждое значение в консоль с новой строки. Затем присвойте 3-й переменной значение
+ и выведите его в консоль, используя nil-coalescing оператор. Есть ли разница между выводами
+ в случае, когда переменная не имела значения и после присвоения.
+ */
+
+var firstStr: String? = "Игорь"
+var secStr: String? = "Игоревич"
+var thirdStr: String? = nil
+
+print(firstStr ?? "Нет имени")
+print(secStr ?? "Нет отчества")
+print(thirdStr ?? "Нет фамилии")
+
+thirdStr = "Букалов"
+
+print(thirdStr ?? "Нет фамилии")
+
+// Подзадача 2
+/*
+ Создать пять строковых констант. Одни константы это только цифры, другие содержат еще и буквы.
+ Найти сумму всех этих констант приведя их к Int. (Используйте optional binding и forced unwrapping)
+ */
+
+let firstNum = "16"
+let secNum = "27"
+let thirdNum = "seven17teen"
+let fourthNum = "///200///"
+let fifthNum = "hundred"
+var sum = 0
+
+if let firstNum = Int(firstNum) {
+    sum += firstNum
+}
+
+if let secNum = Int(secNum) {
+    sum += secNum
+}
+
+if let thirdNum = Int(thirdNum) {
+    sum += thirdNum
+}
+
+if let fourthNum = Int(fourthNum) {
+    sum += fourthNum
+}
+
+if let fifthNum = Int(fifthNum) {
+    sum += fifthNum
+}
+
+print(sum)
+
+// Задача 2
+/*
+ Создайте опциональную константу с типом данных Optional<Int>. Проинициализируйте
+ конструктором преобразования строки в целое число Int(String). Вместо String впишите
+ температуру за окном. При помощи конструкции if else выведите в консоль информационные сообщения.
+ */
+
+let actualTemp: Optional<Int> = Int("31")
+
+if let actualTemp = actualTemp {
+    if actualTemp > 10 {
+        print("Пора прогуляться")
+    } else if actualTemp < -10 {
+        print("Из дома лучше не выходить")
+    } else if actualTemp < 0 {
+        print("Приятная прохлада")
+    } else if actualTemp > 0 {
+        print("Теплеет")
+    }
+} else {
+    print("Ошибка в данных")
+}
