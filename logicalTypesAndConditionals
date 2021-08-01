@@ -1,0 +1,116 @@
+import UIKit
+import Foundation
+
+// Задача 1
+/*
+ Cоставить Операции сравнения и вывести в консоль результат выполнения.
+ - Зарплата первого больше зарплаты третьего
+ - Зарплата второго меньше зарплаты первого
+ - Зарплата первого больше зарплаты второго ИЛИ зарплата третьего меньше зарплаты второго
+ - Зарплата третьего меньше зарплаты первого И Зарплата второго больше зарплаты первого
+ */
+
+var developerSalary = 55000
+var managerSalary = 40000
+var ceoSalary = 70000
+
+developerSalary *= 2
+managerSalary += 15000
+
+var devSalMoreCeoSal = developerSalary > ceoSalary
+var mngrSalLessDevSal = managerSalary < developerSalary
+var seoSalLessMngrSal = ceoSalary < managerSalary
+
+
+if devSalMoreCeoSal {
+    print("Developer's salary (\(developerSalary)) is more than CEO's salary (\(ceoSalary)).")
+} else {
+    print("Developer's salary (\(developerSalary)) is NOT more than CEO's salary (\(ceoSalary)).")
+}
+
+if mngrSalLessDevSal {
+    print("Managers's salary (\(managerSalary)) is less than Developer's salary (\(developerSalary)).")
+} else {
+    print("Managers's salary (\(managerSalary)) is NOT less than Developer's salary (\(developerSalary)).")
+}
+
+if mngrSalLessDevSal || seoSalLessMngrSal {
+    print("Managers's salary (\(managerSalary)) is less than Developer's salary (\(developerSalary)) OR more than CEO's salary (\(ceoSalary)).")
+} else {
+    print("Managers's salary (\(managerSalary)) is NOT less than Developer's salary (\(developerSalary)) or NOT more than CEO's salary (\(ceoSalary)).")
+}
+
+if devSalMoreCeoSal && !mngrSalLessDevSal {
+    print("Developer's salary (\(developerSalary)) is more than CEO's salary (\(ceoSalary)) AND less than Managers's salary (\(managerSalary)).")
+} else {
+    print("Developer's salary (\(developerSalary)) is NOT more than CEO's salary (\(ceoSalary)) AND NOT less than Managers's salary (\(managerSalary)).")
+}
+
+
+// Задача 2
+/*
+ Вам необходимо написать программу для оценки графиков, характеризующих движение валюты в течение дня.
+ У вас есть 3 числа A, B, C и формула D = B * B - 4AC, где D — возможное движение графика.
+ - Если D > 0, график скорее всего продолжит направление
+ - Если D < 0, график скорее всего поменяет направление
+ - Если D = 0, неопределенная ситуация — нужно ждать
+ (Решите задачу тремя способами, используя if-else, тернарный оператор и switch).
+ */
+
+var A = 1
+var B = 2
+var C = 3
+var D = B * B - 4 * A * C
+
+// Используем if-else
+if D > 0 {
+    print("график скорее всего продолжит направление")
+} else if D < 0 {
+    print("график скорее всего поменяет направление")
+} else {
+    print("неопределенная ситуация — нужно ждать")
+}
+
+// Используем тернарный оператор
+D > 0 ? print("график скорее всего продолжит направление") : D < 0 ? print("график скорее всего поменяет направление") : print("неопределенная ситуация — нужно ждать")
+
+// Вариант с использованием тернарного оператора и if-else
+if D == 0 {
+    print("неопределенная ситуация — нужно ждать")
+} else {
+    D > 0 ? print("график скорее всего продолжит направление") : print("график скорее всего поменяет направление")
+}
+
+// Используем switch
+switch D {
+    case ..<0:
+        print("график скорее всего продолжит направление")
+    case 1...:
+        print("график скорее всего поменяет направление")
+    default:
+        print("неопределенная ситуация — нужно ждать")
+}
+
+
+// Задача 3
+/*
+ Вы работаете над приложением, которое предоставляет видеоконтент для пользователей.
+ Вам нужно реализовать фильтр материалов по 2 характеристикам: пол и возраст.
+ - возраст детей от 3 до 17 лет
+ - взрослых людей от 18 до 65 лет включительно
+ - пожилых людей от 66 лет и без верхнего ограничения
+ */
+
+var age = 27
+var isMale = true
+
+switch age {
+case 3...17:
+    print("Детский контент для \(isMale ? "мальчиков" : "девочек").")
+case 18...65:
+    print("Взрослый контент для \(isMale ? "мужчин" : "женщин").")
+case 66...:
+    print("Контент для \(isMale ? "мужчин" : "женщин") пожилого возраста.")
+default:
+    print("Нет подходящего контента.")
+}
