@@ -1,0 +1,54 @@
+import UIKit
+
+// Задача 1
+/*
+Вы работаете над приложением "Информация о вас и ваших друзьях".
+Ваша задача создать список людей с минимальной информацией о них
+и объединить одно из полей для создания общего значения.
+*/
+
+var myInterests = (favMovie: "Yes Man", favNum: 16, favMeal: "pasta")
+
+let (favMovie, favNum, favMeal) = myInterests
+
+var herInterests = (favMovie: "Fifty Shades of Grey", favNum: 27, favMeal: "Watermelon")
+
+var interlapse: (String, Int, String) = ("", 0, "")
+
+interlapse = myInterests
+myInterests = herInterests
+herInterests = interlapse
+
+var favNums = (myInterests.favNum, herInterests.favNum, myInterests.favNum - herInterests.favNum)
+
+
+// Задача 2
+/*
+Представьте, что вы работаете над приложением электронный дневник.
+Создайте словарь, где ключом будет имя студента, а значением будет
+другой словарь из 3 элементов, содержащий название предмета и оценку.
+*/
+
+var grades = ["Music": 4, "History": 5, "Language": 5]
+
+var studentsGrades = ["Igor": grades]
+
+
+// Задача 3 и 4
+/*
+Вы разрабатываете приложение "Шахматы". Вашей задачей будет создать фигуру на игровом поле.
+Вам необходимо доработать программу таким образом, чтобы она автоматически анализировала
+не одну переданную ей фигуру, а все фигуры, хранящиеся в переменной Chessmans.
+*/
+
+typealias Chessman = [String: (alpha:Character, num: Int)?]
+
+var chessmans: Chessman = ["Белый король": (alpha: "b", num: 2), "Белая ладья": (alpha: "d", num: 1), "Белый конь": nil]
+
+for (key, value) in chessmans {
+    if let value = value {
+        print("Координаты фигуры \(key) - '\(value.alpha)\(value.num)'")
+    } else {
+        print("Фигура \(key) отсутствует на игровом поле")
+    }
+}
