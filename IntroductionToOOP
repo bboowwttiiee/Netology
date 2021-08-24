@@ -1,0 +1,66 @@
+import UIKit
+
+/*
+Задача 1
+
+Для каждого принципа ООП приведите 2-3 примера из жизни.
+- Абстракция
+- Инкапсуляция
+- Наследование
+- Полиморфизм
+
+В качестве примеров из жизни для Абстракции могу привести представленный ниже Протокол Gadget, который является минимальным набором характеристик объекта, необходимым для каждого из используемых классов. В качестве примера Инкапсуляции выступают Классы Phone, Tablet и Computer, так как в теле этих классов объединены данные и методы, работающие с этими классами, чтобы скрыть детали реализации от пользователя. Также примером Инкапсуляции являются функции turnOn, displayInfo и turnOff. В качестве примера Наследования привожу классы Tablet и Computer, которые наследуют свойства объекта и методы у родительского класса Phone. Для примера Полиморфизма подойдет класс Phone, который впоследствии выступает в роли типа для классов Tablet и Computer, причем в случае с классом Computer тип указывается Tablet, но так как Tablet является наследником класса Phone, то и, соответственно, класс Computer ненапрямую наследуется от Phone.
+
+Задача 2
+
+Для каждого базового понятия ООП приведите 2-3 примера из жизни. Опишите их текстом.
+- Класс
+- Объект
+- Свойства объектов
+- Методы
+
+В качестве примеров из жизни для Классов могу представить класс Phone. Сам класс Phone является Объектом. Переменные и константы (brand, name и color) внутри класса - это Свойства обектов. Функции же внутри классов (turnOn, displayInfo и turnOff) являются Методами.
+*/
+
+protocol Gadget {
+    func turnOn()
+    func turnOff()
+}
+
+class Phone: Gadget {
+    let brand: String
+    let name: String
+    let color: String
+    
+    init(brand: String, name: String, color: String) {
+        self.brand = brand
+        self.name = name
+        self.color = color
+    }
+    
+    func turnOn() {}
+    func displayInfo() {
+        print("The phone \(brand) \(name) is \(color)")
+    }
+    func turnOff() {}
+}
+
+class Tablet: Phone {
+    override func displayInfo() {
+        print("The tablet \(brand) \(name) is \(color)")
+    }
+}
+
+class Computer: Tablet {
+    override func displayInfo() {
+        print("The computer \(brand) \(name) is \(color)")
+    }
+}
+
+let phone: Phone = Phone(brand: "Apple", name: "iPhone 12 Pro Max", color: "Pacific Blue")
+let tablet: Phone = Tablet(brand: "HUAWEI", name: "MatePad 11", color: "Mate Gray")
+let computer: Phone = Computer(brand: "Hewlett-Packard", name: "ProBook 430 G7", color: "Silver")
+
+phone.displayInfo()
+tablet.displayInfo()
+computer.displayInfo()
