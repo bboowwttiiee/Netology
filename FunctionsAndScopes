@@ -1,0 +1,144 @@
+import UIKit
+
+// Задача 1
+/*
+В данной задаче Вы тренируетесь Добавлять и Удалять значения в Хранилище (массив)
+при помощи двух функций, которые Вам и нужно реализовать. Функции принимают значение,
+но ничего не возвращают. Первая функция добавляет элемент в массив, вторая функция
+удаляет элемент из массива, вы сами можете выбрать любой удобный для вас вариант
+добавления и удаления элементов из массива.
+*/
+
+var movies: [String] = []
+
+func add(_ movie: String, to list: inout [String]) {
+    list.append(movie)
+}
+
+func remove(_ movie: String, from list: inout [String]) {
+    if !list.isEmpty {
+        if list.contains(movie) {
+            list.remove(at: list.firstIndex(of: movie)!)
+            print("'\(movie)' has been removed from the list")
+        } else {
+            print("There is no '\(movie)' in the list")
+        }
+    } else {
+        print("The list is empty")
+    }
+}
+
+// Вариант без использования принудительного извлечения
+
+func remove(_ movie: String, from list: inout [String]) {
+    
+    guard !list.isEmpty else { return }
+    
+    guard let index = list.firstIndex(of: movie) else {
+        print("There is no '\(movie)' in the list")
+        return
+    }
+    
+    list.remove(at: index)
+}
+
+print(movies)
+remove("Oldboy", from: &movies)
+add("Oldboy", to: &movies)
+add("Blade Runner", to: &movies)
+print(movies)
+remove("Oldboy", from: &movies)
+remove("Dracula Untold", from: &movies)
+print(movies)
+
+
+// Задача 2
+/*
+Вы получили тестовое задание от службы доставки еды: преобразовать бонусные баллы клиентов,
+которые хранятся на сайте, в денежные единицы. Со стороны сайта приходит словарь,
+содержащий ID клиента (Int) и накопленную сумму Бонусов (Double). Ваша задача вернуть
+на сайт словарь, содержащий ID клиента (Int) и конвертированные денежные единицы (Int),
+каждые 100 бонусов равны 10 денежным единицам.
+*/
+
+let userPoints = [90: 1391.69, 62: 3804.0, 97: 733.0, 28: 4941.28, 55: 2598.44, 21: 3119.0, 77: 6693.34, 50: 5988.89, 13: 196.0, 38: 1248.34, 78: 5829.48, 64: 4235.56, 34: 5952.0, 15: 2333.34, 74: 828.0, 11: 4080.57, 82: 2260.34, 53: 2001.54, 86: 5138.0, 51: 782.76, 18: 2579.65, 68: 2912.98, 84: 5014.49, 16: 4966.0, 20: 5342.56, 81: 575.0, 3: 2970.87, 19: 5998.76, 22: 337.67, 33: 5796.09, 73: 115.55, 6: 5489.34, 71: 6863.56, 56: 6149.0, 14: 5941.22, 100: 3433.78, 1: 2400.76, 85: 4130.56, 47: 3868.0, 89: 4389.0, 9: 4661.12, 2: 6099.0, 79: 3456.0, 17: 3546.0, 35: 1850.0, 29: 3251.68, 91: 6455.0, 95: 1000.59, 76: 2873.12, 26: 634.34, 45: 2392.98, 80: 6077.87, 93: 6114.78, 94: 4254.78, 25: 3518.0, 72: 35.5, 7: 6420.87, 98: 6971.88, 48: 1805.89, 75: 2788.0, 67: 2619.34, 59: 4800.34, 69: 3495.0, 46: 4978.87, 23: 183.76, 44: 5349.45, 49: 3697.56, 57: 4887.22, 87: 1217.23, 37: 5116.45, 54: 3904.67, 63: 1269.23, 12: 4719.65, 66: 3961.45, 52: 558.0, 39: 5915.56, 31: 90.58, 30: 3238.0, 99: 5252.31, 58: 4021.34, 41: 3313.0, 61: 5805.56, 24: 3162.0, 10: 2823.67, 60: 812.55, 43: 3519.46, 32: 1041.54, 8: 705.34, 83: 4395.76, 4: 6567.55, 27: 4015.0, 36: 6602.59, 42: 568.0, 40: 2054.89, 88: 5548.0, 5: 4647.34, 96: 6938.45, 92: 1431.44, 70: 3048.23, 65: 5415.87]
+
+func bonusesToMoney(from dict: [Int:Double]) -> [Int:Int] {
+    var idsAndMoney: [Int:Int] = [:]
+    for (userId, bonus) in dict {
+        idsAndMoney[userId] = Int(bonus / 10)
+    }
+    
+    return idsAndMoney
+}
+
+print(bonusesToMoney(from: userPoints))
+
+
+// Задача 3
+/*
+Вам необходимо реализовать функцию, которая принимаем массив опциональных значений
+типа Integer и возвращает кортеж, в который необходимо передать сумму четных и нечетных значений.
+*/
+
+let arrayOfNumbers = [Optional(70), Optional(44), Optional(97), Optional(96), Optional(99), Optional(72), nil, Optional(100), Optional(40), Optional(96), Optional(1), Optional(70), Optional(77), Optional(93), Optional(25), Optional(11), Optional(89), Optional(24), Optional(50), Optional(84), Optional(81), Optional(33), Optional(95), Optional(8), Optional(22), Optional(56), Optional(24), Optional(14), Optional(4), Optional(21), Optional(14), Optional(8), Optional(59), Optional(12), Optional(81), Optional(100), Optional(8), Optional(24), Optional(4), Optional(34), Optional(17), Optional(22), Optional(54), Optional(77), Optional(87), nil, Optional(1), Optional(62), Optional(33), Optional(92), Optional(66), Optional(73), Optional(51), Optional(52), Optional(25), Optional(24), Optional(20), Optional(20), Optional(13), Optional(13), Optional(51), Optional(47), Optional(8), Optional(12), Optional(53), nil, Optional(13), Optional(59), Optional(98), Optional(13), Optional(13), Optional(22), Optional(10), Optional(97), Optional(88), Optional(96), Optional(24), Optional(63), Optional(12), Optional(72), Optional(47), Optional(60), Optional(51), Optional(33), Optional(35), Optional(84), Optional(79), Optional(5), Optional(89), Optional(11), Optional(46), Optional(12), Optional(13), nil, Optional(22), Optional(40), nil, Optional(8), Optional(14), Optional(24)]
+
+func calculateSumEvenOddValues(from array: [Int?]) -> (Int, Int) {
+    var evenValues: [Int] = []
+    var oddValues: [Int] = []
+    
+    for num in arrayOfNumbers {
+        if let num = num {
+            if (num % 2 == 0) && !evenValues.contains(num) {
+                evenValues.append(num)
+            } else if (num % 2 != 0) && !oddValues.contains(num) {
+                oddValues.append(num)
+            }
+        }
+    }
+    
+    let sumEvenValues = evenValues.reduce(.zero, +)
+    let sumOddValues = oddValues.reduce(.zero, +)
+    
+    return (sumEvenValues, sumOddValues)
+}
+
+/*
+Вариант с использованием guard вместо if-else, чтобы упростить читаемость кода,
+и преобразованием массива в множество, чтобы исключить все повторения
+*/
+
+func calculateSumEvenOddValues(from array: [Int?]) -> (Int, Int) {
+
+  var tuple: (even: Int, odd: Int) = (0, 0)
+
+  let set = Set(array)
+
+  set.forEach { number in
+    guard let number = number else { return }
+
+    number % 2 == 0 ? (tuple.even += number) : (tuple.odd += number)
+
+  }
+
+  return tuple
+}
+
+/*
+Еще один вариант без использования if-else, но с использованием compactMap,
+чтобы исключить последующую проверку опционалов через guard
+*/
+
+func calculateSumEvenOddValues(from array: [Int?]) -> (Int, Int) {
+    var tuple: (even: Int, odd: Int) = (0, 0)
+ 
+    let set = Set(array).compactMap {$0}
+ 
+    set.forEach { value in
+        value.isMultiple(of: 2) ? (tuple.even += value) : (tuple.odd += value)
+    }
+ 
+    return tuple
+}
+
+calculateSumEvenOddValues(from: arrayOfNumbers)
