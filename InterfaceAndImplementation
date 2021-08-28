@@ -1,0 +1,93 @@
+import UIKit
+
+// Задача 1
+/*
+ Возьмите любой пример из жизни (класс) и опишите уровни доступа к нему. Постарайтесь описать как публичные,
+ так и закрытые уровни и методы. Для решения задачи можно взять класс из предыдущего домашнего задания.
+ */
+
+/*
+ Класс: Банк
+
+ Имеет публичный доступ, так как любой может воспользоваться отдельным экземпляром (объектом) банка, а то есть любой человек может посетить банк
+
+ Пример геттера: узнать баланс лицевого счета
+
+ Пример сеттера: пополнить баланс лицевого счета
+
+ Пример публичного метода: заказать выписку о состоянии лицевого счета
+
+ Пример приватного метода: связаться с клиентом
+ */
+
+
+// Задача 2
+/*
+ 1. Создайте класс.
+ 2. Создайте 3 метода с одинаковым названием, но разными сигнатурами. Статический анализатор Swift подскажет вам, если overload не получится ;)
+ */
+
+class Phone {
+    var rom: String
+    var ram: String
+    
+    init(rom: String, ram: String) {
+        self.rom = rom
+        self.ram = ram
+    }
+    
+    func memory(rom: String) {
+        print("The amount of ROM is \(rom)")
+    }
+    
+    func memory(ram: String) {
+        print("The amount of RAM is \(ram)")
+    }
+    
+    func memory(rom: String, ram: String) {
+        let rom = Int(rom)
+        let ram = Int(ram)
+        var sum: Int = 0
+        
+        guard let rom = rom else { return }
+        sum += rom
+        guard let ram = ram else { return }
+        sum += ram
+        
+        print("The sum of the memory is \(sum)")
+    }
+}
+
+
+// Задача 3
+/*
+ 1. Создайте класс-родитель. Определите в нем метод.
+ 2. Создайте класс-наследник. Переопределите в нем метод родителя, но с вызовом родительского метода.
+ */
+
+class Instrument {
+    var brand: String
+    
+    init(brand: String) {
+        self.brand = brand
+    }
+    
+    func printBrand() {
+        print(brand)
+    }
+}
+
+class Guitar: Instrument {
+    var model: String
+    
+    init(brand: String, model: String) {
+        self.model = model
+        super.init(brand: brand)
+    }
+    
+    override func printBrand() {
+        super.printBrand()
+        
+        print("The \(model)'s brand is \(brand)")
+    }
+}
