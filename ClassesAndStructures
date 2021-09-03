@@ -1,0 +1,113 @@
+import UIKit
+
+print("Задача 1")
+
+/*
+ Представьте себя инженером проектировщиком телевизоров во времена, когда эпоха телевещания только набирала обороты.
+ Вам поступила задача создать устройство для просмотра эфира в домашних условиях "Телевизор в каждую семью".
+
+ Вам нужно реализовать перечисление "Телевизионный канал" с 5-7 каналами.
+ */
+
+class TV {
+    var brand: String, model: String
+    var isOn: Bool
+    
+    enum Channels: String {
+        case first = "Первый"
+        case second = "Второй"
+        case third = "Третий"
+        case fourth = "Четвертый"
+        case fifth = "Пятый"
+    }
+    
+    init(brand: String, model: String, isOn: Bool) {
+        self.brand = brand
+        self.model = model
+        self.isOn = isOn
+    }
+    
+    func whatIsOn(channel: Channels) {
+        if isOn {
+            switch channel {
+            case let channel:
+                print("Current channel is \(channel.rawValue)")
+            }
+        } else {
+            print("TV is off")
+        }
+    }
+}
+
+var firstTV = TV(brand: "Samsung", model: "5 series 32", isOn: true)
+
+firstTV.whatIsOn(channel: .first)
+firstTV.isOn = false
+firstTV.whatIsOn(channel: .first)
+
+
+print("----------------------------------------------")
+print("Задача 2")
+
+/*
+ Время идет, рынок и потребители развиваются, и ваша компания набирает ритм. Поступают все новые и новые
+ требования к эволюции устройств. Перед вами снова инженерная задача — обеспечить пользователей практичным устройством.
+ */
+
+struct TVSettings {
+    var volume: Double
+    var isColorImage: Bool
+}
+
+class NewTV: TV {
+    var settings: TVSettings
+    
+    init(settings: TVSettings, brand: String, model: String, isOn: Bool) {
+        self.settings = settings
+        super.init(brand: brand, model: model, isOn: isOn)
+    }
+    
+    enum Connection {
+        case tv(сhannel: Channels)
+        case input(by: String)
+    }
+    
+    func whatIsOn(connection: Connection) {
+        if isOn {
+            switch connection {
+            case .tv(let channel):
+                print("Current channel is \(channel.rawValue). Volume level is \(settings.volume). The image is \(settings.isColorImage ? "" : "not ")color.")
+            case .input(let name):
+                print("Player is connected by \(name)")
+            }
+        } else {
+            print("TV is off")
+        }
+    }
+}
+
+var secondTV = NewTV(settings: TVSettings(volume: 0.9, isColorImage: true), brand: "Samsung", model: "90", isOn: true)
+
+secondTV.whatIsOn(channel: .fifth)
+
+
+print("----------------------------------------------")
+print("Задача 3")
+
+/*
+ Порог новой эры пройден. Теперь не только есть радиоволна, но и видеомагнитофоны. Эту технику подключают
+ проводами к телевизору и смотрят в записи свои любимые фильмы. Вам, как ведущему инженеру, срочно нужно
+ адаптировать продукт вашей компании, потому как спрос на устаревший вариант резко пошел вниз.
+ */
+
+/*
+ Поместил этот enum в класс NewTV во второй задаче. Закомментил его здесь, чтобы не ругался компилятор
+ 
+ enum Connection {
+     case tv(сhannel: Channels)
+     case input(connection: String)
+ }
+ */
+
+var thirdTV = NewTV(settings: TVSettings(volume: 0.4, isColorImage: false), brand: "Samsung", model: "90", isOn: true)
+thirdTV.whatIsOn(connection: .tv(сhannel: .fourth))
