@@ -1,0 +1,92 @@
+import UIKit
+
+/*
+ 1. Вы разрабатываете библиотеку аудиотреков. Вам необходимо реализовать одну из категорий музыки, наполненную треками.
+ 2. Доработайте свою библиотеку так, чтобы в ней было несколько категорий.
+ 3. Преобразуйте классы так, чтобы в пределах вашей библиотеки можно было обмениваться треками между категориями.
+ */
+
+// Создаем структуру Трек с параметрами для трека
+struct Track: Equatable {
+    var name: String
+    var artist: String
+    var duration: Double
+    var country: String
+}
+
+// Создаем класс Категория, который содержит свойства с именем категории, со списком треков, с количеством треков в списке и методами для добавления и удаления трека в/из категории
+class Category {
+    var categoryName: String
+    var privateTrackList: [Track] = []
+    var trackList: [String] {
+        var insideTracklist: [String] = []
+        for track in privateTrackList {
+            insideTracklist.append("\(track.name) - \(track.artist), \(track.duration) min, \(track.country)")
+        }
+        return insideTracklist
+    }
+    var trackNumbersInTheList: Int {
+        privateTrackList.count
+    }
+    
+    init(categoryName: String) {
+        self.categoryName = categoryName
+    }
+    
+    func addTrack(track: Track) {
+        privateTrackList.append(track)
+    }
+    
+    func removeTrack(track: String) {
+        let defaultTrackListLength = privateTrackList.count
+        for song in privateTrackList {
+            if song.name.lowercased().hasPrefix(track.lowercased()) {
+                privateTrackList.remove(at: privateTrackList.firstIndex(of: song) ?? 0)
+            }
+        }
+        if privateTrackList.count == defaultTrackListLength {
+            print("There is no such song in the list")
+        }
+    }
+}
+
+// Создаем класс Библиотека, в котором хранится список категорий, а также метод для обмена треками между категориями
+class TrackLibrary: Category {
+    var categoryList: [Category] = [awesomeMix, hiphop, synthpop, rockAndRoll]
+    
+    func moveTrack(track: String, from: Category, to: Category) {
+        for categoryItem in from.privateTrackList {
+            if categoryItem.name.hasPrefix(track) {
+                to.addTrack(track: categoryItem)
+            } else {
+                print("There is no such song in the \(from) category")
+            }
+        }
+    }
+}
+
+// Создаем три трека типа Track
+var track1 = Track(name: "Still D.R.E.", artist: "Snoop Dogg feat. Dr. Dre", duration: 4.34, country: "USA")
+var track2 = Track(name: "Take On Me", artist: "a-ha", duration: 3.46, country: "Norway")
+var track3 = Track(name: "A Little Less Conversation", artist: "Elvis Presley", duration: 2.28, country: "USA")
+
+// Создаем четыре категории типа Category
+var awesomeMix = Category(categoryName: "Awesome Mix Vol. 1")
+var hiphop = Category(categoryName: "Hip-hop music")
+var synthpop = Category(categoryName: "Synthpop")
+var rockAndRoll = Category(categoryName: "Rock 'n' Roll")
+
+// Добавляем в категорию awesomeMix три трека, а затем удаляем один из них, введя первые несколько букв названия трека
+awesomeMix.addTrack(track: track1)
+awesomeMix.addTrack(track: track2)
+awesomeMix.addTrack(track: track3)
+awesomeMix.removeTrack(track: "sti")
+
+// Выводим в консоль список треков из категории awesomeMix
+print(awesomeMix.trackList)
+
+// Добавляем трек в категорию hiphop
+hiphop.addTrack(track: track1)
+
+// Выводим в консоль список треков из категории hiphop
+print(hiphop.trackList)
