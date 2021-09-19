@@ -1,0 +1,64 @@
+import UIKit
+
+// Задание 1
+/*
+ Тип для Замыкания: на входе два параметра Double, На Выходе Double.
+ 
+ Вы разрабатываете спутник для полета на Европу (спутник Юпитера). В вашей команде два ученых по космодинамике. Вы даете каждому из них задачу расcчитать количество топлива для достижения спутником цели.
+
+ Данные, которые они получают — это вес спутника и длина полета. Они должны вам предоставить свои алгоритмы расчета расхода топлива (это ваши замыкания). А вы по готовности алгоритмов делаете обработку данных и сравниваете результат (это ваша функция).
+ */
+
+// Создаем и инициализируем переменные для расчета расхода топлива
+
+let satelliteWeight: Double = 1200.53
+let flightLength: Double = 150_000.3214
+
+// Создаем функцию, принимающую в качестве параметра замыкание и выводящую в консоль результат расчета замыкания
+
+func isAppropriateFuelConsumption(calculation: (Double, Double) -> Double) {
+    print("An appropriate fuel consumption is \(calculation(satelliteWeight, flightLength))")
+}
+
+// Создаем два замыкания с различными формулами для расчета расхода топлива
+
+let firstScientistCalculations: (Double, Double) -> Double = { weight, distance in
+    let fullDistanceWeight = weight + distance
+    
+    return fullDistanceWeight * 120
+}
+
+let secondScientistCalculations: (Double, Double) -> Double = { weight, distance in
+    let fullDistanceWeight = weight * distance
+    
+    return fullDistanceWeight / 120
+}
+
+// Выводим результаты в консоль
+
+isAppropriateFuelConsumption(calculation: firstScientistCalculations)
+isAppropriateFuelConsumption(calculation: secondScientistCalculations)
+
+
+// Задание 2
+
+/*
+ В вашем конструкторском бюро случилось ЧП и все компьютеры вышли из строя, но последние алгоритмы вы помните. Вы намерены добраться до ближайшего компьютера в соседнем селе и восстановить из своей памяти нужные данные. Ваша задача запомнить максимально краткую форму записи алгоритмов, чтобы все не смешалось в голове.
+ */
+
+// Замыкания из задания 1 в сокращенном виде
+
+let anotherFirstScientistCalculations: (Double, Double) -> Double = { $0 + $1 * 120 }
+
+let anotherSecondScientistCalculations: (Double, Double) -> Double = { $0 * $1 / 120 }
+
+// Задача 3
+
+/*
+ Пока вы добирались до села с компьютером, вам пришла в голову мысль своего алгоритма. Вы решили использовать свою функцию для проверки гипотезы и стали набирать алгоритм прямо в ней (реализация замыкания вместо параметра).
+ */
+
+// Вызваем функцию из задания 1, определив ей замыкание самостоятельно (не передавая)
+
+isAppropriateFuelConsumption { $0 + $1 * 120 }
+isAppropriateFuelConsumption { $0 * $1 / 120 }
