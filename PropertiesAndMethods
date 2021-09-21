@@ -17,16 +17,16 @@ struct Track: Equatable {
 // Создаем класс Категория, который содержит свойства с именем категории, со списком треков, с количеством треков в списке и методами для добавления и удаления трека в/из категории
 class Category {
     var categoryName: String
-    var privateTrackList: [Track] = []
+    static var privateTrackList: [Track] = []
     var trackList: [String] {
         var insideTracklist: [String] = []
-        for track in privateTrackList {
+        for track in Category.privateTrackList {
             insideTracklist.append("\(track.name) - \(track.artist), \(track.duration) min, \(track.country)")
         }
         return insideTracklist
     }
     var trackNumbersInTheList: Int {
-        privateTrackList.count
+        Category.privateTrackList.count
     }
     
     init(categoryName: String) {
@@ -34,17 +34,17 @@ class Category {
     }
     
     func addTrack(track: Track) {
-        privateTrackList.append(track)
+        Category.privateTrackList.append(track)
     }
     
     func removeTrack(track: String) {
-        let defaultTrackListLength = privateTrackList.count
-        for song in privateTrackList {
+        let defaultTrackListLength = Category.privateTrackList.count
+        for song in Category.privateTrackList {
             if song.name.lowercased().hasPrefix(track.lowercased()) {
-                privateTrackList.remove(at: privateTrackList.firstIndex(of: song) ?? 0)
+                Category.privateTrackList.remove(at: Category.privateTrackList.firstIndex(of: song) ?? 0)
             }
         }
-        if privateTrackList.count == defaultTrackListLength {
+        if Category.privateTrackList.count == defaultTrackListLength {
             print("There is no such song in the list")
         }
     }
@@ -55,7 +55,7 @@ class TrackLibrary: Category {
     var categoryList: [Category] = [awesomeMix, hiphop, synthpop, rockAndRoll]
     
     func moveTrack(track: String, from: Category, to: Category) {
-        for categoryItem in from.privateTrackList {
+        for categoryItem in Category.privateTrackList {
             if categoryItem.name.hasPrefix(track) {
                 to.addTrack(track: categoryItem)
             } else {
@@ -90,3 +90,4 @@ hiphop.addTrack(track: track1)
 
 // Выводим в консоль список треков из категории hiphop
 print(hiphop.trackList)
+
